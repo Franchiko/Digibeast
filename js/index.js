@@ -5,20 +5,19 @@ function iniciarJuego() {
 
 function seleccionarMascotaJugador() {
 	let inputHypodoge = document.getElementById("Hypodoge");
-	let inputKapypepo = document.getElementById("Kapypepo");
+	let inputKapypeppo = document.getElementById("Kapypeppo");
 	let inputRatyheia = document.getElementById("Ratyheia");
 
 	if (inputHypodoge.checked) {
 		alert("Seleccionaste a Hypodoge");
-	} else if (inputKapypepo.checked) {
-		alert("Seleccionaste a Kapypepo");
+	} else if (inputKapypeppo.checked) {
+		alert("Seleccionaste a Kapypeppo");
 	} else if (inputRatyheia.checked) {
 		alert("Seleccionaste a Ratyheia");
 	} else {
 		alert("Selecciona una mascota");
 	}
-
-	alert("Eligieron un Digibeast ya ! \n\nA JUGAR!!");
+	alert("Ya elegiste un Digibeast \n\nA JUGAR!!");
 }
 
 // Este codigo hace que se cargue el archivo JS al momento de cargar la pagina
