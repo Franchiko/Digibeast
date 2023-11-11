@@ -7,17 +7,30 @@ function seleccionarMascotaJugador() {
 	let inputHypodoge = document.getElementById("Hypodoge");
 	let inputKapypeppo = document.getElementById("Kapypeppo");
 	let inputRatyheia = document.getElementById("Ratyheia");
+	let spanMascotaJugador = document.getElementById("mascota-jugador");
 
 	if (inputHypodoge.checked) {
-		alert("Seleccionaste a Hypodoge");
+		spanMascotaJugador.innerHTML = "Hypodoge";
 	} else if (inputKapypeppo.checked) {
-		alert("Seleccionaste a Kapypeppo");
+		spanMascotaJugador.innerHTML = "Kapypeppo";
 	} else if (inputRatyheia.checked) {
-		alert("Seleccionaste a Ratyheia");
+		spanMascotaJugador.innerHTML = "Ratyheia";
 	} else {
 		alert("Selecciona una mascota");
 	}
+	seleccionarMascotaEnemigo();
+
 	alert("Ya elegiste un Digibeast \n\nA JUGAR!!");
+
+	function seleccionarMascotaEnemigo() {
+		let ataqueAleatorio = aleatorio(1, 3);
+		if (ataqueAleatorio == 1) {
+		}
+	}
+
+	function aleatorio(min, max) {
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
 }
 
 // Este codigo hace que se cargue el archivo JS al momento de cargar la pagina
