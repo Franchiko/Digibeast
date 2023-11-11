@@ -24,7 +24,13 @@ function seleccionarMascotaJugador() {
 
 	function seleccionarMascotaEnemigo() {
 		let ataqueAleatorio = aleatorio(1, 3);
+		let spanMascotaEnemigo = document.getElementById("mascota-enemigo");
 		if (ataqueAleatorio == 1) {
+			spanMascotaEnemigo.innerHTML = "Hypodoge";
+		} else if (ataqueAleatorio == 2) {
+			spanMascotaEnemigo.innerHTML = "Kapypeppo";
+		} else {
+			spanMascotaEnemigo.innerHTML = "Ratyheia";
 		}
 	}
 
