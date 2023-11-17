@@ -72,13 +72,31 @@ function ataqueAleatorioEnemigo() {
 	} else {
 		ataqueEnemigo = "TIERRA";
 	}
-	crearMensaje();
+	combate();
 }
-
-function crearMensaje() {
+//Esta funcion crea las opciones si empata gana o pierde el jugador despues de elegir el Digibeast
+function combate() {
+	if (ataqueEnemigo == ataqueJugador) {
+		crearMensaje("EMPATE");
+	} else if (ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
+		crearMensaje("GANASTE");
+		triunfos += 1;
+	} else if (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") {
+		crearMensaje("GANASTE");
+		triunfos += 1;
+	} else if (ataqueJugador == "TIERRA" && ataqueEnemigo == "AGUA") {
+		crearMensaje("GANASTE");
+		triunfos += 1;
+	} else {
+		crearMensaje("PERDISTE");
+		perdidas += 1;
+	}
+}
+//esta funcion crea el mensaje si se gana empate o pierde, toma como parametro la variable Resultado que es la que almacena el valor de la funcion COMBATE"
+function crearMensaje(resultado) {
 	let sectionMensajes = document.getElementById("messages");
 	let parrafo = document.createElement("p");
-	parrafo.innerHTML = `Tu mascota atacó con ${ataqueJugador} , la mascota del enemigo atacó con ${ataqueEnemigo}`;
+	parrafo.innerHTML = `Tu mascota atacó con ${ataqueJugador} , la mascota del enemigo atacó con ${ataqueEnemigo} - \n ${resultado}`;
 	sectionMensajes.appendChild(parrafo);
 }
 
