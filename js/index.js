@@ -101,6 +101,15 @@ function combate() {
 		vidasJugador--;
 		spanVidasJugador.innerHTML = vidasJugador;
 	}
+	revisarVidas();
+}
+//Revisar las vidas para saber si termino o no el juego
+function revisarVidas() {
+	if (vidasEnemigo == 0) {
+		crearMensajeFinal("FELICITACIONES!! GANASTE...");
+	} else if (vidasJugador == 0) {
+		crearMensajeFinal("SORRY!! PERDISTE...");
+	}
 }
 
 //esta funcion crea el mensaje si se gana empate o pierde, toma como parametro la variable Resultado que es la que almacena el valor de la funcion COMBATE"
@@ -108,6 +117,13 @@ function crearMensaje(resultado) {
 	let sectionMensajes = document.getElementById("messages");
 	let parrafo = document.createElement("p");
 	parrafo.innerHTML = `Tu mascota atacó con ${ataqueJugador} , la mascota del enemigo atacó con ${ataqueEnemigo} - \n ${resultado}`;
+	sectionMensajes.appendChild(parrafo);
+}
+
+function crearMensajeFinal(resultadoFinal) {
+	let sectionMensajes = document.getElementById("messages");
+	let parrafo = document.createElement("p");
+	parrafo.innerHTML = resultadoFinal;
 	sectionMensajes.appendChild(parrafo);
 }
 
