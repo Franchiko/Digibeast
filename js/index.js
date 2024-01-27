@@ -4,6 +4,16 @@ let vidasJugador = 3;
 let vidasEnemigo = 3;
 
 function iniciarJuego() {
+	// Código que desaparece la seccion donde eliges jugador//////
+	let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
+	sectionSeleccionarAtaque.style.display = "none";
+	// Aqui termina ese bloque/////////
+
+	//Seccion de Código para ocultar boton de reinicio//
+	let displayBotonReinicio = document.getElementById("reset");
+	displayBotonReinicio.style.display = "none";
+	//Termina seccion de Código para ocultar boton de reinicio//
+
 	let botonMascotaJugador = document.getElementById("boton-mascota");
 	botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador);
 
@@ -14,9 +24,22 @@ function iniciarJuego() {
 	botonAgua.addEventListener("click", ataqueAgua);
 	let botonTierra = document.getElementById("boton-tierra");
 	botonTierra.addEventListener("click", ataqueTierra);
+
+	//Inclusion de boton de Reinicio
+	let botonReiniciar = document.getElementById("boton-reiniciar");
+	botonReiniciar.addEventListener("click", reiniciarJuego);
 }
 
 function seleccionarMascotaJugador() {
+	// ++ Código donde se oculta la seccion de seleccionar mascota de Jugador//
+	let sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
+	sectionSeleccionarMascota.style.display = "none";
+	// ++ Termina Código donde se oculta la seccion de seleccionar mascota de Jugador//
+	//----------//
+	/////Código donde se muestra la seccion de Elegir jugador////
+	let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
+	sectionSeleccionarAtaque.style.display = "block";
+	/////Aqui termina el bloque/////
 	let inputHypodoge = document.getElementById("Hypodoge");
 	let inputKapypeppo = document.getElementById("Kapypeppo");
 	let inputRatyheia = document.getElementById("Ratyheia");
@@ -125,6 +148,23 @@ function crearMensajeFinal(resultadoFinal) {
 	let parrafo = document.createElement("p");
 	parrafo.innerHTML = resultadoFinal;
 	sectionMensajes.appendChild(parrafo);
+
+	//Seccion de Código para ocultar boton de reinicio//
+	let displayBotonReinicio = document.getElementById("reset");
+	displayBotonReinicio.style.display = "block";
+	//Termina seccion de Código para ocultar boton de reinicio//
+
+	//Deshabilitar boton de ataques
+	let botonFuego = document.getElementById("boton-fuego");
+	botonFuego.disabled = true;
+	let botonAgua = document.getElementById("boton-agua");
+	botonAgua.disabled = true;
+	let botonTierra = document.getElementById("boton-tierra");
+	botonTierra.disabled = true;
+}
+
+function reiniciarJuego() {
+	location.reload();
 }
 
 function aleatorio(min, max) {
