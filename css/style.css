@@ -1,24 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Prompt:wght@200;400;600&family=Ruslan+Display&display=swap");
+
+body {
+	font-family: "Advent Pro", sans-serif;
+	background-color: #070f2b;
+}
+
 .title {
-	color: lightcoral;
-	width: 310px;
-	height: 50px;
-	background-color: antiquewhite;
+	color: white;
+	font-size: 32px;
 }
 
-label {
-	width: 310px;
-	height: 50px;
-	background-color: tomato;
+#seleccionar_mascota {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-input {
-	width: 310px;
-	height: 50px;
-	background-color: tomato;
+.subtitle {
+	color: white;
+	font-size: 20px;
 }
 
-button {
-	width: 310px;
-	height: 50px;
-	background-color: blueviolet;
+.tarjetas {
+	display: flex;
+	gap: 10px;
+}
+
+.tarjeta-digibeast {
+	width: 100px;
+	height: 100px;
+	background: #535c91;
+	padding: 10px;
+	box-sizing: border-box;
+	margin: 10px;
+	border-radius: 20px;
 }
