@@ -12,7 +12,7 @@
 
     <!-- Section to select mascota -->
     <section id="seleccionar_mascota">
-        <h1 class="title" id='titulo'>Digibeast 🔥 💧 🪨 </h1>
+        <h1 class="title" id='titulo'> 🪨 💧 🔥 Digibeast 🔥 💧 🪨 </h1>
 
         <h2 class="subtitle">Elige tu Digibeast:</h2>
 
@@ -42,26 +42,35 @@
 
     <!-- Section to select attack -->
     <section id="seleccionar_ataque">
-        <h1 class='title' id='titulo'>Digibeast 🔥 💧 🪨 </h1>
-        <h2>Elige tu Ataque:</h2>
+        <h1 class="title" id='titulo'> 🪨 💧 🔥 Digibeast 🔥 💧 🪨 </h1>
+        <h2 class="subtitle">Elige tu Ataque:</h2>
 
-        <p>Tu Digibeast <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-        <p>El Digibeast enemigo <span id="mascota-enemigo"></span> tiene <span id="vidas-enemigo">3</span> vidas</p>
+        <div>
+            <button id="boton-fuego" class="boton-de-ataque">Fuego 🔥</button>
+            <button id="boton-agua" class="boton-de-ataque"> Agua 💧</button>
+            <button id="boton-tierra" class="boton-de-ataque"> Tierra 🪨</button>
+        </div>
 
-        <p>
-            <button id="boton-fuego">Fuego 🔥</button>
-            <button id="boton-agua"> Agua 💧</button>
-            <button id="boton-tierra"> Tierra 🪨</button>
-        </p>
+        <div>
+            <section id="messages">
+                <!-- <p>Tu Digibeast atacó con FUEGO, el enemigo atacó con TIERRA - GANASTE !! 🎉🎉🎉</p> -->
+            </section>
+
+            <section id="reset">
+                <button id="boton-reiniciar">REINICIO</button>
+            </section>
+        </div>
+
+        <div>
+            <p>Tu Digibeast <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+            <p>El Digibeast enemigo <span id="mascota-enemigo"></span> tiene <span id="vidas-enemigo">3</span> vidas</p>
+        </div>
+
+
+
     </section>
 
-    <section id="messages">
-        <!-- <p>Tu Digibeast atacó con FUEGO, el enemigo atacó con TIERRA - GANASTE !! 🎉🎉🎉</p> -->
-    </section>
 
-    <section id="reset">
-        <button id="boton-reiniciar">REINICIO</button>
-    </section>
 
     <script src="/js/index.js"></script>
 </body>

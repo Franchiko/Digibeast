@@ -3,6 +3,7 @@
 body {
 	font-family: "Ruslan Display", sans-serif;
 	background-color: #070f2b;
+	color: white;
 }
 
 .title {
@@ -19,7 +20,7 @@ body {
 
 .subtitle {
 	color: white;
-	font-size: 20px;
+	font-size: 24px;
 }
 
 .tarjetas {
@@ -45,16 +46,33 @@ body {
 	}
 
 	p {
-		font-size: 12px;
+		font-size: 16px;
+		font-family: "Prompt", sans-serif;
+		font-weight: 200;
 	}
 }
 
 button {
 	width: 200px;
-	background-color: white;
+	height: 40px;
+	margin: 30px 10px 0px 10px;
 	color: #9290c3;
-	border-radius: 10px;
-	font-family: "Advent Pro", sans-serif;
-	font-size: 24px;
+	background: transparent;
+	border: 2px solid #9290c3;
+	border-radius: 20px;
+	font-family: "Prompt", sans-serif;
+	font-size: 18px;
 	font-weight: 900;
+}
+
+/* Custom Segunda Pantalla de Juego */
+
+#seleccionar_ataque {
+	flex-direction: column;
+	align-items: center;
+}
+
+.boton-de-ataque {
+	background-color: #535c91;
+	color: white;
 }

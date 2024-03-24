@@ -38,7 +38,7 @@ function seleccionarMascotaJugador() {
 	//----------//
 	/////Código donde se muestra la seccion de Elegir jugador////
 	let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
-	sectionSeleccionarAtaque.style.display = "block";
+	sectionSeleccionarAtaque.style.display = "flex";
 	/////Aqui termina el bloque/////
 	let inputHypodoge = document.getElementById("Hypodoge");
 	let inputKapypeppo = document.getElementById("Kapypeppo");
