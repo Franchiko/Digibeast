@@ -138,29 +138,27 @@ function revisarVidas() {
 //esta funcion crea el mensaje si se gana empate o pierde, toma como parametro la variable Resultado que es la que almacena el valor de la funcion COMBATE"
 function crearMensaje(resultado) {
 	let sectionMensajes = document.getElementById("resultado");
-	let ataque_del_jugador = document.getElementById("ataque-del-jugador");
-	let ataque_del_enemigo = document.getElementById("ataque-del-enemigo");
+	let ataqueDelJugador = document.getElementById("ataque-Del-Jugador");
+	let ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
 
-	let notificacion = document.createElement("p");
 	let nuevoAtaqueDelJugador = document.createElement("p");
 	let nuevoAtaqueDelEnemigo = document.createElement("p");
 
 	sectionMensajes.innerHTML = resultado;
 	nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
-	nuevoAtaqueDelEnemigol.innerHTML = ataqueEnemigo;
+	nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
 
 	// let parrafo = document.createElement("p");
 	// parrafo.innerHTML = `Tu mascota atacó con ${ataqueJugador} , la mascota del enemigo atacó con ${ataqueEnemigo} - \n ${resultado}`;
-	sectionMensajes.appendChild(notificacion);
-	ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
-	ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
+
+	ataqueDelJugador.appendChild(nuevoAtaqueDelJugador);
+	ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
 }
 
 function crearMensajeFinal(resultadoFinal) {
-	let sectionMensajes = document.getElementById("messages");
-	let parrafo = document.createElement("p");
-	parrafo.innerHTML = resultadoFinal;
-	sectionMensajes.appendChild(parrafo);
+	let sectionMensajes = document.getElementById("resultado");
+
+	sectionMensajes.innerHTML = resultadoFinal;
 
 	//Seccion de Código para ocultar boton de reinicio//
 	let displayBotonReinicio = document.getElementById("reset");
