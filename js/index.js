@@ -1,3 +1,28 @@
+const sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
+const displayBotonReinicio = document.getElementById("reset");
+const botonMascotaJugador = document.getElementById("boton-mascota");
+const botonFuego = document.getElementById("boton-fuego");
+const botonAgua = document.getElementById("boton-agua");
+const botonTierra = document.getElementById("boton-tierra");
+const botonReiniciar = document.getElementById("boton-reiniciar");
+
+const sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
+const inputHypodoge = document.getElementById("Hypodoge");
+const inputKapypeppo = document.getElementById("Kapypeppo");
+const inputRatyheia = document.getElementById("Ratyheia");
+const spanMascotaJugador = document.getElementById("mascota-jugador");
+const spanMascotaEnemigo = document.getElementById("mascota-enemigo");
+
+const spanVidasJugador = document.getElementById("vidas-jugador");
+const spanVidasEnemigo = document.getElementById("vidas-enemigo");
+
+const sectionMensajes = document.getElementById("resultado");
+const ataqueDelJugador = document.getElementById("ataque-Del-Jugador");
+const ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
+
+const nuevoAtaqueDelJugador = document.createElement("p");
+const nuevoAtaqueDelEnemigo = document.createElement("p");
+
 let ataqueJugador;
 let ataqueEnemigo;
 let vidasJugador = 3;
@@ -5,46 +30,28 @@ let vidasEnemigo = 3;
 
 function iniciarJuego() {
 	// Código que desaparece la seccion donde eliges jugador//////
-	let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
 	sectionSeleccionarAtaque.style.display = "none";
 	// Aqui termina ese bloque/////////
-
 	//Seccion de Código para ocultar boton de reinicio//
-	let displayBotonReinicio = document.getElementById("reset");
 	displayBotonReinicio.style.display = "none";
 	//Termina seccion de Código para ocultar boton de reinicio//
-
-	let botonMascotaJugador = document.getElementById("boton-mascota");
 	botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador);
-
 	//Selector de tipos de ataque de Juagador
-	let botonFuego = document.getElementById("boton-fuego");
 	botonFuego.addEventListener("click", ataqueFuego);
-	let botonAgua = document.getElementById("boton-agua");
 	botonAgua.addEventListener("click", ataqueAgua);
-	let botonTierra = document.getElementById("boton-tierra");
 	botonTierra.addEventListener("click", ataqueTierra);
-
 	//Inclusion de boton de Reinicio
-	let botonReiniciar = document.getElementById("boton-reiniciar");
 	botonReiniciar.addEventListener("click", reiniciarJuego);
 }
 
 function seleccionarMascotaJugador() {
 	// ++ Código donde se oculta la seccion de seleccionar mascota de Jugador//
-	let sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
 	sectionSeleccionarMascota.style.display = "none";
 	// ++ Termina Código donde se oculta la seccion de seleccionar mascota de Jugador//
 	//----------//
 	/////Código donde se muestra la seccion de Elegir jugador////
-	let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
 	sectionSeleccionarAtaque.style.display = "flex";
 	/////Aqui termina el bloque/////
-	let inputHypodoge = document.getElementById("Hypodoge");
-	let inputKapypeppo = document.getElementById("Kapypeppo");
-	let inputRatyheia = document.getElementById("Ratyheia");
-	let spanMascotaJugador = document.getElementById("mascota-jugador");
-
 	if (inputHypodoge.checked) {
 		spanMascotaJugador.innerHTML = "Hypodoge";
 	} else if (inputKapypeppo.checked) {
@@ -55,13 +62,11 @@ function seleccionarMascotaJugador() {
 		alert("Selecciona una mascota");
 	}
 	seleccionarMascotaEnemigo();
-
 	alert("Ya elegiste un Digibeast \n\nA JUGAR!!");
 }
 
 function seleccionarMascotaEnemigo() {
 	let mascotaAleatorio = aleatorio(1, 3);
-	let spanMascotaEnemigo = document.getElementById("mascota-enemigo");
 	if (mascotaAleatorio == 1) {
 		spanMascotaEnemigo.innerHTML = "Hypodoge";
 	} else if (mascotaAleatorio == 2) {
@@ -70,18 +75,15 @@ function seleccionarMascotaEnemigo() {
 		spanMascotaEnemigo.innerHTML = "Ratyheia";
 	}
 }
-
 //Funciones para cargar el tipo de ataque de jugador
 function ataqueFuego() {
 	ataqueJugador = "FUEGO";
 	ataqueAleatorioEnemigo();
 }
-
 function ataqueAgua() {
 	ataqueJugador = "AGUA";
 	ataqueAleatorioEnemigo();
 }
-
 function ataqueTierra() {
 	ataqueJugador = "TIERRA";
 	ataqueAleatorioEnemigo();
@@ -102,9 +104,6 @@ function ataqueAleatorioEnemigo() {
 
 //Esta funcion crea las opciones si empata gana o pierde el jugador despues de elegir el Digibeast
 function combate() {
-	let spanVidasJugador = document.getElementById("vidas-jugador");
-	let spanVidasEnemigo = document.getElementById("vidas-enemigo");
-
 	if (ataqueEnemigo == ataqueJugador) {
 		crearMensaje("EMPATE");
 	} else if (ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
@@ -134,43 +133,26 @@ function revisarVidas() {
 		crearMensajeFinal("SORRY!! PERDISTE...");
 	}
 }
-
 //esta funcion crea el mensaje si se gana empate o pierde, toma como parametro la variable Resultado que es la que almacena el valor de la funcion COMBATE"
 function crearMensaje(resultado) {
-	let sectionMensajes = document.getElementById("resultado");
-	let ataqueDelJugador = document.getElementById("ataque-Del-Jugador");
-	let ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
-
-	let nuevoAtaqueDelJugador = document.createElement("p");
-	let nuevoAtaqueDelEnemigo = document.createElement("p");
-
 	sectionMensajes.innerHTML = resultado;
 	nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
 	nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
-
 	// let parrafo = document.createElement("p");
 	// parrafo.innerHTML = `Tu mascota atacó con ${ataqueJugador} , la mascota del enemigo atacó con ${ataqueEnemigo} - \n ${resultado}`;
-
 	ataqueDelJugador.appendChild(nuevoAtaqueDelJugador);
 	ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
 }
 
 function crearMensajeFinal(resultadoFinal) {
-	let sectionMensajes = document.getElementById("resultado");
-
 	sectionMensajes.innerHTML = resultadoFinal;
-
 	//Seccion de Código para ocultar boton de reinicio//
-	let displayBotonReinicio = document.getElementById("reset");
 	displayBotonReinicio.style.display = "block";
 	//Termina seccion de Código para ocultar boton de reinicio//
 
 	//Deshabilitar boton de ataques
-	let botonFuego = document.getElementById("boton-fuego");
 	botonFuego.disabled = true;
-	let botonAgua = document.getElementById("boton-agua");
 	botonAgua.disabled = true;
-	let botonTierra = document.getElementById("boton-tierra");
 	botonTierra.disabled = true;
 }
 
