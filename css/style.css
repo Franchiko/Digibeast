@@ -97,3 +97,10 @@ button {
 	border: 2px;
 	color: #9290c3;
 }
+
+.ataques {
+	display: grid;
+	grid-template-columns: 150px 150px;
+	text-align: center;
+	margin-top: 30px;
+}
