@@ -23,22 +23,51 @@ const ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
 const nuevoAtaqueDelJugador = document.createElement("p");
 const nuevoAtaqueDelEnemigo = document.createElement("p");
 
+// Arrays para guardar Digibeast
+let digibeasts = [];
+
 let ataqueJugador;
 let ataqueEnemigo;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 
+// Inclusion de Clases y objetos
 class Digibeast {
 	constructor(nombre, foto, vida) {
 		this.nombre = nombre;
 		this.foto = foto;
 		this.vida = vida;
+		this.ataques = [];
 	}
 }
 
 let hypodoge = new Digibeast("Hypodoge", "./img/Hypodoge.png", 5);
 let kapypeppo = new Digibeast("Kapypeppo", "./img/Kapypeppo.png", 5);
 let ratyheia = new Digibeast("Ratyheia", "./img/Ratyheia.png", 5);
+
+hypodoge.ataques.push(
+	{ nombre: "💧", id: "boton-agua" },
+	{ nombre: "💧", id: "boton-agua" },
+	{ nombre: "💧", id: "boton-agua" },
+	{ nombre: "🔥", id: "boton-fuego" },
+	{ nombre: "🪨", id: "boton-tierra" }
+);
+
+kapypeppo.ataques.push(
+	{ nombre: "🪨", id: "boton-tierra" },
+	{ nombre: "🪨", id: "boton-tierra" },
+	{ nombre: "🪨", id: "boton-tierra" },
+	{ nombre: "💧", id: "boton-agua" },
+	{ nombre: "🔥", id: "boton-fuego" }
+);
+
+ratyheia.ataques.push(
+	{ nombre: "🔥", id: "boton-fuego" },
+	{ nombre: "🔥", id: "boton-fuego" },
+	{ nombre: "🔥", id: "boton-fuego" },
+	{ nombre: "💧", id: "boton-agua" },
+	{ nombre: "🪨", id: "boton-tierra" }
+);
 
 function iniciarJuego() {
 	// Código que desaparece la seccion donde eliges jugador//////
