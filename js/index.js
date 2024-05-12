@@ -28,6 +28,18 @@ let ataqueEnemigo;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 
+class Digibeast {
+	constructor(nombre, foto, vida) {
+		this.nombre = nombre;
+		this.foto = foto;
+		this.vida = vida;
+	}
+}
+
+let hypodoge = new Digibeast("Hypodoge", "./img/Hypodoge.png", 5);
+let kapypeppo = new Digibeast("Kapypeppo", "./img/Kapypeppo.png", 5);
+let ratyheia = new Digibeast("Ratyheia", "./img/Ratyheia.png", 5);
+
 function iniciarJuego() {
 	// Código que desaparece la seccion donde eliges jugador//////
 	sectionSeleccionarAtaque.style.display = "none";
