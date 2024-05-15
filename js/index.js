@@ -1,3 +1,6 @@
+//------------------SECTION 1-------------------//
+
+// //////// Variables de COntrol////////
 const sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
 const displayBotonReinicio = document.getElementById("reset");
 const botonMascotaJugador = document.getElementById("boton-mascota");
@@ -7,9 +10,7 @@ const botonTierra = document.getElementById("boton-tierra");
 const botonReiniciar = document.getElementById("boton-reiniciar");
 
 const sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
-const inputHypodoge = document.getElementById("Hypodoge");
-const inputKapypeppo = document.getElementById("Kapypeppo");
-const inputRatyheia = document.getElementById("Ratyheia");
+
 const spanMascotaJugador = document.getElementById("mascota-jugador");
 const spanMascotaEnemigo = document.getElementById("mascota-enemigo");
 
@@ -23,14 +24,23 @@ const ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
 const nuevoAtaqueDelJugador = document.createElement("p");
 const nuevoAtaqueDelEnemigo = document.createElement("p");
 
+const contenedorTarjetas = document.getElementById("contenedorTarjetas");
+
 // Arrays para guardar Digibeast
 let digibeasts = [];
-
 let ataqueJugador;
 let ataqueEnemigo;
+let opcionDeDigibeast;
+let inputHypodoge;
+let inputKapypeppo;
+let inputRatyheia;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
+//
+////////////////////////////////
+////////////////////////////////
 
+//------------------SECTION 2-------------------//
 // Inclusion de Clases y objetos
 class Digibeast {
 	constructor(nombre, foto, vida) {
@@ -41,10 +51,12 @@ class Digibeast {
 	}
 }
 
+// Carga de Variables que contienen las propiedades de cada Digibeast
 let hypodoge = new Digibeast("Hypodoge", "./img/Hypodoge.png", 5);
 let kapypeppo = new Digibeast("Kapypeppo", "./img/Kapypeppo.png", 5);
 let ratyheia = new Digibeast("Ratyheia", "./img/Ratyheia.png", 5);
 
+//---Carga de  Ataques de c7Digibeast--//
 hypodoge.ataques.push(
 	{ nombre: "💧", id: "boton-agua" },
 	{ nombre: "💧", id: "boton-agua" },
@@ -69,9 +81,33 @@ ratyheia.ataques.push(
 	{ nombre: "🪨", id: "boton-tierra" }
 );
 
+//////----Método para cargar propiedades de cada DIgibeast en el juego-----////
+digibeasts.push(hypodoge, kapypeppo, ratyheia);
+//
+////////////////////////////////
+////////////////////////////////
+
+//------------------SECTION 3-------------------//
+//////// -------- Funciones de cada etapa del juego-----------////
+
 function iniciarJuego() {
 	// Código que desaparece la seccion donde eliges jugador//////
 	sectionSeleccionarAtaque.style.display = "none";
+
+	digibeasts.forEach((digibeast) => {
+		opcionDeDigibeast = `
+		<input type="radio" name="mascota" id=${digibeast.nombre}>
+            <label class="tarjeta-digibeast" for=${digibeast.nombre}>
+                <p class="paragraph">${digibeast.nombre}</p>
+                <img src=${digibeast.foto} alt=${digibeast.nombre}>
+            </label>
+		`;
+		contenedorTarjetas.innerHTML += opcionDeDigibeast;
+
+		inputHypodoge = document.getElementById("Hypodoge");
+		inputKapypeppo = document.getElementById("Kapypeppo");
+		inputRatyheia = document.getElementById("Ratyheia");
+	});
 	// Aqui termina ese bloque/////////
 	//Seccion de Código para ocultar boton de reinicio//
 	displayBotonReinicio.style.display = "none";
@@ -94,11 +130,11 @@ function seleccionarMascotaJugador() {
 	sectionSeleccionarAtaque.style.display = "flex";
 	/////Aqui termina el bloque/////
 	if (inputHypodoge.checked) {
-		spanMascotaJugador.innerHTML = "Hypodoge";
+		spanMascotaJugador.innerHTML = inputHypodoge.id;
 	} else if (inputKapypeppo.checked) {
-		spanMascotaJugador.innerHTML = "Kapypeppo";
+		spanMascotaJugador.innerHTML = inputKapypeppo.id;
 	} else if (inputRatyheia.checked) {
-		spanMascotaJugador.innerHTML = "Ratyheia";
+		spanMascotaJugador.innerHTML = inputRatyheia.id;
 	} else {
 		alert("Selecciona una mascota");
 	}
@@ -107,14 +143,15 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarMascotaEnemigo() {
-	let mascotaAleatorio = aleatorio(1, 3);
-	if (mascotaAleatorio == 1) {
-		spanMascotaEnemigo.innerHTML = "Hypodoge";
-	} else if (mascotaAleatorio == 2) {
-		spanMascotaEnemigo.innerHTML = "Kapypeppo";
-	} else {
-		spanMascotaEnemigo.innerHTML = "Ratyheia";
-	}
+	let mascotaAleatorio = aleatorio(0, digibeasts.length - 1);
+	// if (mascotaAleatorio == 1) {
+	// 	spanMascotaEnemigo.innerHTML = "Hypodoge";
+	// } else if (mascotaAleatorio == 2) {
+	// 	spanMascotaEnemigo.innerHTML = "Kapypeppo";
+	// } else {
+	// 	spanMascotaEnemigo.innerHTML = "Ratyheia";
+	// }
+	spanMascotaEnemigo.innerHTML = digibeasts[mascotaAleatorio].nombre;
 }
 //Funciones para cargar el tipo de ataque de jugador
 function ataqueFuego() {
