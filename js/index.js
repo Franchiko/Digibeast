@@ -4,9 +4,7 @@
 const sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
 const displayBotonReinicio = document.getElementById("reset");
 const botonMascotaJugador = document.getElementById("boton-mascota");
-const botonFuego = document.getElementById("boton-fuego");
-const botonAgua = document.getElementById("boton-agua");
-const botonTierra = document.getElementById("boton-tierra");
+
 const botonReiniciar = document.getElementById("boton-reiniciar");
 
 const sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
@@ -25,15 +23,22 @@ const nuevoAtaqueDelJugador = document.createElement("p");
 const nuevoAtaqueDelEnemigo = document.createElement("p");
 
 const contenedorTarjetas = document.getElementById("contenedorTarjetas");
+const contenedorAtaques = document.getElementById("contenedorAtaques");
 
 // Arrays para guardar Digibeast
 let digibeasts = [];
-let ataqueJugador;
+let ataqueJugador = [];
 let ataqueEnemigo;
 let opcionDeDigibeast;
 let inputHypodoge;
 let inputKapypeppo;
 let inputRatyheia;
+let mascotaJugador;
+let ataquesDigibeast;
+let botonFuego;
+let botonAgua;
+let botonTierra;
+let botones = [];
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 //
@@ -113,10 +118,6 @@ function iniciarJuego() {
 	displayBotonReinicio.style.display = "none";
 	//Termina seccion de Código para ocultar boton de reinicio//
 	botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador);
-	//Selector de tipos de ataque de Juagador
-	botonFuego.addEventListener("click", ataqueFuego);
-	botonAgua.addEventListener("click", ataqueAgua);
-	botonTierra.addEventListener("click", ataqueTierra);
 	//Inclusion de boton de Reinicio
 	botonReiniciar.addEventListener("click", reiniciarJuego);
 }
@@ -131,15 +132,66 @@ function seleccionarMascotaJugador() {
 	/////Aqui termina el bloque/////
 	if (inputHypodoge.checked) {
 		spanMascotaJugador.innerHTML = inputHypodoge.id;
+		mascotaJugador = inputHypodoge.id;
 	} else if (inputKapypeppo.checked) {
 		spanMascotaJugador.innerHTML = inputKapypeppo.id;
+		mascotaJugador = inputKapypeppo.id;
 	} else if (inputRatyheia.checked) {
 		spanMascotaJugador.innerHTML = inputRatyheia.id;
+		mascotaJugador = inputRatyheia.id;
 	} else {
 		alert("Selecciona una mascota");
 	}
+	extraerAtaques(mascotaJugador);
 	seleccionarMascotaEnemigo();
 	alert("Ya elegiste un Digibeast \n\nA JUGAR!!");
+}
+
+function extraerAtaques(mascotaJugador) {
+	let ataques;
+	for (let i = 0; i < digibeasts.length; i++) {
+		if (mascotaJugador === digibeasts[i].nombre) {
+			ataques = digibeasts[i].ataques;
+		}
+	}
+	mostrarAtaques(ataques);
+}
+
+function mostrarAtaques(ataques) {
+	ataques.forEach((ataque) => {
+		ataquesDigibeast = `
+		<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre} </button>
+		`;
+		contenedorAtaques.innerHTML += ataquesDigibeast;
+	});
+	botonFuego = document.getElementById("boton-fuego");
+	botonAgua = document.getElementById("boton-agua");
+	botonTierra = document.getElementById("boton-tierra");
+
+	botones = document.querySelectorAll(".BAtaque");
+}
+
+function secuenciaAtaque() {
+	botones.forEach((boton) => {
+		boton.addEventListener("click", (e) => {
+			if (e.target.textContent === "🔥") {
+				ataqueJugador.push("FUEGO");
+				console.log(ataqueJugador);
+				boton.style.backgroundColor = "#001000";
+				boton.style.border = "none";
+			} else if (e.target.textContent === "💧") {
+				ataqueJugador.push("AGUA");
+				console.log(ataqueJugador);
+				boton.style.backgroundColor = "#001000";
+				boton.style.border = "none";
+			} else {
+				ataqueJugador.push("TIERRA");
+				console.log(ataqueJugador);
+				boton.style.backgroundColor = "#001000";
+				boton.style.border = "none";
+			}
+		});
+	});
 }
 
 function seleccionarMascotaEnemigo() {
@@ -152,21 +204,10 @@ function seleccionarMascotaEnemigo() {
 	// 	spanMascotaEnemigo.innerHTML = "Ratyheia";
 	// }
 	spanMascotaEnemigo.innerHTML = digibeasts[mascotaAleatorio].nombre;
-}
-//Funciones para cargar el tipo de ataque de jugador
-function ataqueFuego() {
-	ataqueJugador = "FUEGO";
-	ataqueAleatorioEnemigo();
-}
-function ataqueAgua() {
-	ataqueJugador = "AGUA";
-	ataqueAleatorioEnemigo();
-}
-function ataqueTierra() {
-	ataqueJugador = "TIERRA";
-	ataqueAleatorioEnemigo();
+	secuenciaAtaque();
 }
 
+//Funcion para cargar el tipo de ataque de enemigo
 function ataqueAleatorioEnemigo() {
 	let ataqueAleatorio = aleatorio(1, 3);
 
