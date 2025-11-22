@@ -27,7 +27,9 @@ const contenedorAtaques = document.getElementById("contenedorAtaques");
 
 // Arrays para guardar Digibeast
 let digibeasts = [];
+
 let ataqueJugador = [];
+
 let ataqueEnemigo;
 let opcionDeDigibeast;
 let inputHypodoge;
@@ -61,7 +63,7 @@ let hypodoge = new Digibeast("Hypodoge", "./img/Hypodoge.png", 5);
 let kapypeppo = new Digibeast("Kapypeppo", "./img/Kapypeppo.png", 5);
 let ratyheia = new Digibeast("Ratyheia", "./img/Ratyheia.png", 5);
 
-//---Carga de  Ataques de c7Digibeast--//
+//---Carga de  Ataques de c/Digibeast--//
 hypodoge.ataques.push(
 	{ nombre: "💧", id: "boton-agua" },
 	{ nombre: "💧", id: "boton-agua" },
@@ -106,7 +108,7 @@ function iniciarJuego() {
                 <p class="paragraph">${digibeast.nombre}</p>
                 <img src=${digibeast.foto} alt=${digibeast.nombre}>
             </label>
-		`;
+		`
 		contenedorTarjetas.innerHTML += opcionDeDigibeast;
 
 		inputHypodoge = document.getElementById("Hypodoge");
