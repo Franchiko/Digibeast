@@ -4,7 +4,6 @@
 const sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque");
 const displayBotonReinicio = document.getElementById("reset");
 const botonMascotaJugador = document.getElementById("boton-mascota");
-
 const botonReiniciar = document.getElementById("boton-reiniciar");
 
 const sectionSeleccionarMascota = document.getElementById("seleccionar_mascota");
@@ -18,29 +17,28 @@ const spanVidasEnemigo = document.getElementById("vidas-enemigo");
 const sectionMensajes = document.getElementById("resultado");
 const ataqueDelJugador = document.getElementById("ataque-Del-Jugador");
 const ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
-
-const nuevoAtaqueDelJugador = document.createElement("p");
-const nuevoAtaqueDelEnemigo = document.createElement("p");
-
 const contenedorTarjetas = document.getElementById("contenedorTarjetas");
 const contenedorAtaques = document.getElementById("contenedorAtaques");
 
 // Arrays para guardar Digibeast
 let digibeasts = [];
-
 let ataqueJugador = [];
-
-let ataqueEnemigo;
+let ataqueEnemigo = [];
 let opcionDeDigibeast;
 let inputHypodoge;
 let inputKapypeppo;
 let inputRatyheia;
 let mascotaJugador;
 let ataquesDigibeast;
+let ataquesDigibeastEnemigo;
 let botonFuego;
 let botonAgua;
 let botonTierra;
 let botones = [];
+let indexAtaqueJugador;
+let indexAtaqueEnemigo;
+let victoriasJugador= 0;
+let victoriasEnemigo= 0;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 //
@@ -105,7 +103,7 @@ function iniciarJuego() {
 		opcionDeDigibeast = `
 		<input type="radio" name="mascota" id=${digibeast.nombre}>
             <label class="tarjeta-digibeast" for=${digibeast.nombre}>
-                <p class="paragraph">${digibeast.nombre}</p>
+                <p>${digibeast.nombre}</p>
                 <img src=${digibeast.foto} alt=${digibeast.nombre}>
             </label>
 		`
@@ -117,7 +115,7 @@ function iniciarJuego() {
 	});
 	// Aqui termina ese bloque/////////
 	//Seccion de Código para ocultar boton de reinicio//
-	displayBotonReinicio.style.display = "none";
+	//displayBotonReinicio.style.display = "none";//
 	//Termina seccion de Código para ocultar boton de reinicio//
 	botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador);
 	//Inclusion de boton de Reinicio
@@ -146,20 +144,19 @@ function seleccionarMascotaJugador() {
 	}
 	extraerAtaques(mascotaJugador);
 	seleccionarMascotaEnemigo();
-	alert("Ya elegiste un Digibeast \n\nA JUGAR!!");
 }
 
 function extraerAtaques(mascotaJugador) {
-	let ataques;
+	let ataques
 	for (let i = 0; i < digibeasts.length; i++) {
 		if (mascotaJugador === digibeasts[i].nombre) {
 			ataques = digibeasts[i].ataques;
 		}
 	}
-	mostrarAtaques(ataques);
+	mostrarAtaques(ataques)
 }
 
-function mostrarAtaques(ataques) {
+function mostrarAtaques(ataques) { //Funcion para mostrar los ataques en el HTML y asignarles un ID (contiene la variable BOtones)
 	ataques.forEach((ataque) => {
 		ataquesDigibeast = `
 		<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre} </button>
@@ -176,89 +173,104 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque() {
 	botones.forEach((boton) => {
 		boton.addEventListener("click", (e) => {
-			if (e.target.textContent === "🔥") {
-				ataqueJugador.push("FUEGO");
-				console.log(ataqueJugador);
-				boton.style.backgroundColor = "#001000";
-				boton.style.border = "none";
-			} else if (e.target.textContent === "💧") {
-				ataqueJugador.push("AGUA");
-				console.log(ataqueJugador);
-				boton.style.backgroundColor = "#001000";
-				boton.style.border = "none";
+			// Use currentTarget and trim to avoid whitespace/newline mismatches
+			const simbolo = e.currentTarget.textContent.trim();
+			if (simbolo === '🔥') {
+				ataqueJugador.push('FUEGO');
+			} else if (simbolo === '💧') {
+				ataqueJugador.push('AGUA');
 			} else {
-				ataqueJugador.push("TIERRA");
-				console.log(ataqueJugador);
-				boton.style.backgroundColor = "#001000";
-				boton.style.border = "none";
+				ataqueJugador.push('TIERRA');
 			}
+			console.log(simbolo);
+			console.log(ataqueJugador);
+			boton.style.backgroundColor = "#001000";
+			boton.style.border = "none";
+			ataqueAleatorioEnemigo();
 		});
 	});
 }
 
 function seleccionarMascotaEnemigo() {
 	let mascotaAleatorio = aleatorio(0, digibeasts.length - 1);
-	// if (mascotaAleatorio == 1) {
-	// 	spanMascotaEnemigo.innerHTML = "Hypodoge";
-	// } else if (mascotaAleatorio == 2) {
-	// 	spanMascotaEnemigo.innerHTML = "Kapypeppo";
-	// } else {
-	// 	spanMascotaEnemigo.innerHTML = "Ratyheia";
-	// }
 	spanMascotaEnemigo.innerHTML = digibeasts[mascotaAleatorio].nombre;
+	ataquesDigibeastEnemigo = digibeasts[mascotaAleatorio].ataques;
 	secuenciaAtaque();
 }
 
 //Funcion para cargar el tipo de ataque de enemigo
 function ataqueAleatorioEnemigo() {
-	let ataqueAleatorio = aleatorio(1, 3);
+	let ataqueAleatorio = aleatorio(0, ataquesDigibeastEnemigo.length - 1);
 
-	if (ataqueAleatorio == 1) {
-		ataqueEnemigo = "FUEGO";
-	} else if (ataqueAleatorio == 2) {
-		ataqueEnemigo = "AGUA";
+	if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
+		ataqueEnemigo.push('FUEGO');
+	} else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
+		ataqueEnemigo.push('AGUA');
 	} else {
-		ataqueEnemigo = "TIERRA";
+		ataqueEnemigo.push('TIERRA');
 	}
-	combate();
+	console.log(ataqueEnemigo);
+	iniciarPelea();
+}
+
+function iniciarPelea() { //FUncion que espera a que el jugador elija 5 ataques para iniciar el combate
+	if (ataqueJugador.length === 5) {
+		combate();
+	}
+}
+
+function indexAmbosOponentes(jugador, enemigo) {
+	indexAtaqueJugador = ataqueJugador[jugador];
+	indexAtaqueEnemigo = ataqueEnemigo[enemigo];
 }
 
 //Esta funcion crea las opciones si empata gana o pierde el jugador despues de elegir el Digibeast
 function combate() {
-	if (ataqueEnemigo == ataqueJugador) {
-		crearMensaje("EMPATE");
-	} else if (ataqueJugador == "FUEGO" && ataqueEnemigo == "TIERRA") {
-		crearMensaje("GANASTE");
-		vidasEnemigo--;
-		spanVidasEnemigo.innerHTML = vidasEnemigo;
-	} else if (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") {
-		crearMensaje("GANASTE");
-		vidasEnemigo--;
-		spanVidasEnemigo.innerHTML = vidasEnemigo;
-	} else if (ataqueJugador == "TIERRA" && ataqueEnemigo == "AGUA") {
-		crearMensaje("GANASTE");
-		vidasEnemigo--;
-		spanVidasEnemigo.innerHTML = vidasEnemigo;
-	} else {
-		crearMensaje("PERDISTE");
-		vidasJugador--;
-		spanVidasJugador.innerHTML = vidasJugador;
+	for (let index = 0; index < ataqueJugador.length; index++) {
+		if (ataqueEnemigo[index] === ataqueJugador[index]) {
+			indexAmbosOponentes(index, index);
+			crearMensaje("EMPATE");
+		} else if (ataqueJugador[index] === "FUEGO" && ataqueEnemigo[index] === "TIERRA") {
+			indexAmbosOponentes(index, index);
+			crearMensaje("GANASTE");
+			victoriasJugador++
+			spanVidasJugador.innerHTML = victoriasJugador;
+		} else if (ataqueJugador[index] === "AGUA" && ataqueEnemigo[index] === "FUEGO") {
+			indexAmbosOponentes(index, index);
+			crearMensaje("GANASTE");
+			victoriasJugador++
+			spanVidasJugador.innerHTML = victoriasJugador;
+		} else if (ataqueJugador[index] === "TIERRA" && ataqueEnemigo[index] === "AGUA") {
+			indexAmbosOponentes(index, index);
+			crearMensaje("GANASTE");
+			victoriasJugador++
+			spanVidasJugador.innerHTML = victoriasJugador;
+		} else {
+			indexAmbosOponentes(index, index);
+			crearMensaje("PERDISTE");
+			victoriasEnemigo++
+			spanVidasEnemigo.innerHTML = victoriasEnemigo;
+		}
 	}
 	revisarVidas();
 }
 //Revisar las vidas para saber si termino o no el juego
 function revisarVidas() {
-	if (vidasEnemigo == 0) {
+	if (victoriasJugador === victoriasEnemigo) {
+		crearMensajeFinal("Esto es un EMPATE!!");
+	} else if (victoriasJugador > victoriasEnemigo) {
 		crearMensajeFinal("FELICITACIONES!! GANASTE...");
-	} else if (vidasJugador == 0) {
+	} else {
 		crearMensajeFinal("SORRY!! PERDISTE...");
 	}
 }
 //esta funcion crea el mensaje si se gana empate o pierde, toma como parametro la variable Resultado que es la que almacena el valor de la funcion COMBATE"
 function crearMensaje(resultado) {
+	let nuevoAtaqueDelJugador = document.createElement('p')
+    let nuevoAtaqueDelEnemigo = document.createElement('p')
 	sectionMensajes.innerHTML = resultado;
-	nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
-	nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
+	nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
+	nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo;
 	// let parrafo = document.createElement("p");
 	// parrafo.innerHTML = `Tu mascota atacó con ${ataqueJugador} , la mascota del enemigo atacó con ${ataqueEnemigo} - \n ${resultado}`;
 	ataqueDelJugador.appendChild(nuevoAtaqueDelJugador);
@@ -266,15 +278,15 @@ function crearMensaje(resultado) {
 }
 
 function crearMensajeFinal(resultadoFinal) {
+	
 	sectionMensajes.innerHTML = resultadoFinal;
-	//Seccion de Código para ocultar boton de reinicio//
-	displayBotonReinicio.style.display = "block";
-	//Termina seccion de Código para ocultar boton de reinicio//
 
 	//Deshabilitar boton de ataques
 	botonFuego.disabled = true;
 	botonAgua.disabled = true;
 	botonTierra.disabled = true;
+	
+	displayBotonReinicio.style.display = "block";
 }
 
 function reiniciarJuego() {
@@ -287,3 +299,4 @@ function aleatorio(min, max) {
 
 // Este codigo hace que se cargue el archivo JS al momento de cargar la pagina
 window.addEventListener("load", iniciarJuego);
+
