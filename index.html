@@ -24,8 +24,10 @@
     <section id="ver-mapa">
         <h2 class="subtitle">Recorre el Mapa con tu Digibeast</h2>
         <canvas id="mapa"></canvas>
-        <button onclick="moverDigibeast()">Mover</button>
-    </section>
+        <button onmouseup="stopMove()" onmousedown="moveUp()">Up</button>
+        <button onmouseup="stopMove()" onmousedown="moveDown()">Down</button>
+        <button onmouseup="stopMove()" onmousedown="moveLeft()">Left</button>
+        <button onmouseup="stopMove()" onmousedown="moveRight()">Right</button>
 
     <!-- Section to select attack -->
     <section id="seleccionar_ataque">

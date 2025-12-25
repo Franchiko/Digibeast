@@ -46,6 +46,7 @@ let vidasJugador = 3;
 let vidasEnemigo = 3;
 //Section 4 (Canvas)
 let lienzo = mapa.getContext("2d");
+let intervalo;
 
 ////////////////////////////////
 ////////////////////////////////
@@ -64,6 +65,9 @@ class Digibeast {
 		this.alto = 80;
 		this.mapaFoto = new Image();
 		this.mapaFoto.src = foto;
+		this.velocidadX = 0;
+		this.velocidadY = 0;
+		
 	}
 }
 
@@ -143,6 +147,8 @@ function seleccionarMascotaJugador() {
 	/////Codigo donde se muestra la seccion del Mapa////
 	
 	sectionVerMapa.style.display = "flex";
+
+	intervalo = setInterval(pintarPersonaje, 50);
 	
 	/////Aqui termina el bloque/////
 	if (inputHypodoge.checked) {
@@ -310,13 +316,34 @@ function aleatorio(min, max) {
 }
 
 function pintarPersonaje() {
-	lienzo.clearRect(0, 0, lienzo.width, lienzo.height);
+	kapypeppo.x = kapypeppo.x + kapypeppo.velocidadX;
+	kapypeppo.y = kapypeppo.y + kapypeppo.velocidadY;
+	lienzo.clearRect(0, 0, mapa.width, mapa.height);
 	lienzo.drawImage(kapypeppo.mapaFoto, kapypeppo.x, kapypeppo.y, kapypeppo.ancho, kapypeppo.alto);
 }
 
-function moverDigibeast() {
-	kapypeppo.x = kapypeppo.x + 10;
-	pintarPersonaje();
+function moveRight() {
+	kapypeppo.velocidadX = 10;
+	
+}
+
+function moveLeft() {
+	kapypeppo.velocidadX = -10;
+}
+
+function moveUp() {
+	kapypeppo.velocidadY = -10;
+}
+
+
+function moveDown() {
+	kapypeppo.velocidadY = 10;
+	
+}
+
+function stopMove() {
+	kapypeppo.velocidadX = 0;
+	kapypeppo.velocidadY = 0;
 }
 
 // Este codigo hace que se cargue el archivo JS al momento de cargar la pagina
