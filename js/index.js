@@ -19,6 +19,9 @@ const ataqueDelJugador = document.getElementById("ataque-Del-Jugador");
 const ataqueDelEnemigo = document.getElementById("ataque-Del-Enemigo");
 const contenedorTarjetas = document.getElementById("contenedorTarjetas");
 const contenedorAtaques = document.getElementById("contenedorAtaques");
+//Section 4. Canvas
+const sectionVerMapa = document.getElementById("ver-mapa");
+const mapa = document.getElementById("mapa");
 
 // Arrays para guardar Digibeast
 let digibeasts = [];
@@ -41,7 +44,9 @@ let victoriasJugador= 0;
 let victoriasEnemigo= 0;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
-//
+//Section 4 (Canvas)
+let lienzo = mapa.getContext("2d");
+
 ////////////////////////////////
 ////////////////////////////////
 
@@ -53,6 +58,12 @@ class Digibeast {
 		this.foto = foto;
 		this.vida = vida;
 		this.ataques = [];
+		this.x = 20;
+		this.y = 20;
+		this.ancho = 80;
+		this.alto = 80;
+		this.mapaFoto = new Image();
+		this.mapaFoto.src = foto;
 	}
 }
 
@@ -88,9 +99,6 @@ ratyheia.ataques.push(
 
 //////----Método para cargar propiedades de cada DIgibeast en el juego-----////
 digibeasts.push(hypodoge, kapypeppo, ratyheia);
-//
-////////////////////////////////
-////////////////////////////////
 
 //------------------SECTION 3-------------------//
 //////// -------- Funciones de cada etapa del juego-----------////
@@ -98,7 +106,7 @@ digibeasts.push(hypodoge, kapypeppo, ratyheia);
 function iniciarJuego() {
 	// Código que desaparece la seccion donde eliges jugador//////
 	sectionSeleccionarAtaque.style.display = "none";
-
+	sectionVerMapa.style.display = "none";
 	digibeasts.forEach((digibeast) => {
 		opcionDeDigibeast = `
 		<input type="radio" name="mascota" id=${digibeast.nombre}>
@@ -128,7 +136,14 @@ function seleccionarMascotaJugador() {
 	// ++ Termina Código donde se oculta la seccion de seleccionar mascota de Jugador//
 	//----------//
 	/////Código donde se muestra la seccion de Elegir jugador////
-	sectionSeleccionarAtaque.style.display = "flex";
+	//sectionSeleccionarAtaque.style.display = "flex";
+	///Termina el bloque/////
+	///////////////////////////////////////
+	//Section 4. Mapa (Canvas)
+	/////Codigo donde se muestra la seccion del Mapa////
+	
+	sectionVerMapa.style.display = "flex";
+	
 	/////Aqui termina el bloque/////
 	if (inputHypodoge.checked) {
 		spanMascotaJugador.innerHTML = inputHypodoge.id;
@@ -184,8 +199,9 @@ function secuenciaAtaque() {
 			}
 			console.log(simbolo);
 			console.log(ataqueJugador);
-			boton.style.backgroundColor = "#001000";
+			boton.style.backgroundColor = "#c7ccc752";
 			boton.style.border = "none";
+			boton.disabled = true;
 			ataqueAleatorioEnemigo();
 		});
 	});
@@ -281,10 +297,6 @@ function crearMensajeFinal(resultadoFinal) {
 	
 	sectionMensajes.innerHTML = resultadoFinal;
 
-	//Deshabilitar boton de ataques
-	botonFuego.disabled = true;
-	botonAgua.disabled = true;
-	botonTierra.disabled = true;
 	
 	displayBotonReinicio.style.display = "block";
 }
@@ -295,6 +307,16 @@ function reiniciarJuego() {
 
 function aleatorio(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function pintarPersonaje() {
+	lienzo.clearRect(0, 0, lienzo.width, lienzo.height);
+	lienzo.drawImage(kapypeppo.mapaFoto, kapypeppo.x, kapypeppo.y, kapypeppo.ancho, kapypeppo.alto);
+}
+
+function moverDigibeast() {
+	kapypeppo.x = kapypeppo.x + 10;
+	pintarPersonaje();
 }
 
 // Este codigo hace que se cargue el archivo JS al momento de cargar la pagina
