@@ -32,6 +32,7 @@ let inputHypodoge;
 let inputKapypeppo;
 let inputRatyheia;
 let mascotaJugador;
+let mascotaJugadorObjeto;
 let ataquesDigibeast;
 let ataquesDigibeastEnemigo;
 let botonFuego;
@@ -47,6 +48,8 @@ let vidasEnemigo = 3;
 //Section 4 (Canvas)
 let lienzo = mapa.getContext("2d");
 let intervalo;
+let mapaBackground = new Image();
+mapaBackground.src = "/img/DigibeastMap.png";
 
 ////////////////////////////////
 ////////////////////////////////
@@ -61,8 +64,8 @@ class Digibeast {
 		this.ataques = [];
 		this.x = 20;
 		this.y = 20;
-		this.ancho = 80;
-		this.alto = 80;
+		this.ancho = 50;
+		this.alto = 50;
 		this.mapaFoto = new Image();
 		this.mapaFoto.src = foto;
 		this.velocidadX = 0;
@@ -143,12 +146,7 @@ function seleccionarMascotaJugador() {
 	//sectionSeleccionarAtaque.style.display = "flex";
 	///Termina el bloque/////
 	///////////////////////////////////////
-	//Section 4. Mapa (Canvas)
-	/////Codigo donde se muestra la seccion del Mapa////
 	
-	sectionVerMapa.style.display = "flex";
-
-	intervalo = setInterval(pintarPersonaje, 50);
 	
 	/////Aqui termina el bloque/////
 	if (inputHypodoge.checked) {
@@ -164,6 +162,10 @@ function seleccionarMascotaJugador() {
 		alert("Selecciona una mascota");
 	}
 	extraerAtaques(mascotaJugador);
+	//Section 4. Mapa (Canvas)
+	/////Codigo donde se muestra la seccion del Mapa////
+	sectionVerMapa.style.display = "flex";
+	iniciarMapa();
 	seleccionarMascotaEnemigo();
 }
 
@@ -315,35 +317,72 @@ function aleatorio(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function pintarPersonaje() {
-	kapypeppo.x = kapypeppo.x + kapypeppo.velocidadX;
-	kapypeppo.y = kapypeppo.y + kapypeppo.velocidadY;
+function pintarCanvas() {
+	mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX;
+	mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY;
 	lienzo.clearRect(0, 0, mapa.width, mapa.height);
-	lienzo.drawImage(kapypeppo.mapaFoto, kapypeppo.x, kapypeppo.y, kapypeppo.ancho, kapypeppo.alto);
+	lienzo.drawImage(mapaBackground, 0, 0, mapa.width, mapa.height);
+	lienzo.drawImage(mascotaJugadorObjeto.mapaFoto, mascotaJugadorObjeto.x, mascotaJugadorObjeto.y, mascotaJugadorObjeto.ancho, mascotaJugadorObjeto.alto);
 }
 
 function moveRight() {
-	kapypeppo.velocidadX = 10;
-	
+	mascotaJugadorObjeto.velocidadX = 10;
 }
 
 function moveLeft() {
-	kapypeppo.velocidadX = -10;
+	mascotaJugadorObjeto.velocidadX = -10;
 }
 
 function moveUp() {
-	kapypeppo.velocidadY = -10;
+	mascotaJugadorObjeto.velocidadY = -10;
 }
 
-
 function moveDown() {
-	kapypeppo.velocidadY = 10;
-	
+	mascotaJugadorObjeto.velocidadY = 10;
 }
 
 function stopMove() {
-	kapypeppo.velocidadX = 0;
-	kapypeppo.velocidadY = 0;
+	mascotaJugadorObjeto.velocidadX = 0;
+	mascotaJugadorObjeto.velocidadY = 0;
+}
+
+function sePresionaTecla(event){
+	console.log(event.key)
+	switch (event.key) {
+		case 'ArrowUp':
+			moveUp()
+			break;
+		case 'ArrowDown':
+			moveDown()
+			break;
+		case 'ArrowLeft':
+			moveLeft()
+			break;
+		case 'ArrowRight':
+			moveRight()
+			break;
+		default:
+			break;
+	}
+}
+
+function iniciarMapa() {
+	mapa.width = 400;
+	mapa.height = 300;
+	mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador);
+	console.log(mascotaJugadorObjeto, mascotaJugador);
+	
+	intervalo = setInterval(pintarCanvas, 50);
+	window.addEventListener('keydown', sePresionaTecla);
+	window.addEventListener('keyup', stopMove);
+}
+
+function obtenerObjetoMascota() {
+	for (let i = 0; i < digibeasts.length; i++) {
+		if (mascotaJugador === digibeasts[i].nombre) {
+			return digibeasts[i];
+		}
+	}
 }
 
 // Este codigo hace que se cargue el archivo JS al momento de cargar la pagina
